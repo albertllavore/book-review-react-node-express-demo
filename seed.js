@@ -49,20 +49,45 @@ const populateBookObject = (arr) => {
   });
 }
 
-const seedBookDatabase = () => {
+const seedBookAndReviewDatabases = () => {
   db.serialize(function() {
     db.run('DROP TABLE IF EXISTS Book');
+
     db.run('CREATE TABLE IF NOT EXISTS `Book` ( ' +
-            '`id` INTEGER PRIMARY KEY, ' +
-            '`title` TEXT NOT NULL, ' +
-            '`author` TEXT NOT NULL, ' +
-            '`publisher` TEXT NOT NULL, ' +
-            '`summary` TEXT NOT NULL, ' +
-            '`img` TEXT NOT NULL ' +
-          ')');
+        '`id` INTEGER PRIMARY KEY, ' +
+        '`title` TEXT NOT NULL, ' +
+        '`author` TEXT NOT NULL, ' +
+        '`publisher` TEXT NOT NULL, ' +
+        '`summary` TEXT NOT NULL, ' +
+        '`img` TEXT NOT NULL ' +
+    ')');
+
     booksArr.forEach((book, index) => {
         db.run("INSERT INTO Book (id, title, author, publisher, summary, img) VALUES ($id, $title, $author, $publisher, $summary, $img)", 
               {$id: index, $title: book.title, $author: book.author, $publisher: book.publisher, $summary: book.summary, $img: book.img});
+    });
+
+    db.run('DROP TABLE IF EXISTS Review');
+
+    db.run('CREATE TABLE IF NOT EXISTS `Review` ( ' +
+        '`id` INTEGER PRIMARY KEY, ' +
+        '`summary` TEXT NOT NULL, ' +
+        '`author` TEXT NOT NULL, ' +
+        '`rating` INTEGER NOT NULL, ' +
+        '`date` DATE NOT NULL, ' +
+        '`book_id` INTEGER NOT NULL, ' +
+        'FOREIGN KEY (`book_id`) REFERENCES `Book` (`id`) ' +
+    ')');
+
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    console.log(date);
+
+    booksArr.forEach((book, index) => {
+      console.log(book);
+      db.run("INSERT INTO Review (id, summary, author, rating, date, book_id) VALUES " +
+            "($id, $summary, $author, $rating, $date, $book_id)", 
+            {$id: index, $summary: "Review for " + book.title, $author: "Wes Llavore", $rating: 3, $date: date, $book_id: index});
     });
   });
 }
@@ -80,7 +105,7 @@ const getBooks = () => {
     resp.on('end', () => {
       fileArr = data.split('\n');
       populateBookObject(fileArr);
-      seedBookDatabase();
+      seedBookAndReviewDatabases();
     });
   }).on("error", (err) => {
     console.log("Error: " + err.message);
