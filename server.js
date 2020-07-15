@@ -3,7 +3,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const errorHandler = require('errorhandler');
-const apiRouter = require('./server/api');
 const cors = require('cors');
 
 const PORT = process.env.PORT || 4001;
@@ -20,6 +19,7 @@ if (!process.env.IS_TEST_ENV) {
 
 app.use(cors());
 
+const apiRouter = require('./server/api');
 app.use('/api', apiRouter);
 
 app.listen(PORT, () => {
