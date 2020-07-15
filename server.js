@@ -3,11 +3,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const errorHandler = require('errorhandler');
-const apiRouter = require('./api/api');
+const apiRouter = require('./server/api');
 const cors = require('cors');
-
-const sqlite3 = require('sqlite3');
-const db = new sqlite3.Database(process.env.TEST_DATABASE || './db.sqlite');
 
 const PORT = process.env.PORT || 4001;
 
@@ -24,7 +21,6 @@ if (!process.env.IS_TEST_ENV) {
 app.use(cors());
 
 app.use('/api', apiRouter);
-
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
