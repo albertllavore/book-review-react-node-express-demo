@@ -70,29 +70,34 @@ const seedBookAndReviewDatabases = () => {
     db.run('DROP TABLE IF EXISTS Review');
 
     db.run('CREATE TABLE IF NOT EXISTS `Review` ( ' +
-        '`id` INTEGER PRIMARY KEY, ' +
-        '`summary` TEXT NOT NULL, ' +
+        '`id` INTEGER PRIMARY KEY autoincrement, ' +
         '`author` TEXT NOT NULL, ' +
+        '`summary` TEXT NOT NULL, ' +
+        '`review` TEXT NOT NULL, ' +
         '`rating` INTEGER NOT NULL, ' +
         '`date` DATE NOT NULL, ' +
         '`book_id` INTEGER NOT NULL, ' +
         'FOREIGN KEY (`book_id`) REFERENCES `Book` (`id`) ' +
     ')');
 
-    var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    console.log(date);
-
     booksArr.forEach((book, index) => {
-      console.log(book);
-      db.run("INSERT INTO Review (id, summary, author, rating, date, book_id) VALUES " +
-            "($id, $summary, $author, $rating, $date, $book_id)", 
-            {$id: index, $summary: "Review for " + book.title, $author: "Wes Llavore", $rating: 3, $date: date, $book_id: index});
+      let today = new Date();
+      let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      let rating = Math.floor(Math.random() * 6);
+      
+      db.run("INSERT INTO Review (author, summary, review, rating, date, book_id) VALUES " +
+            "($author, $summary, $review, $rating, $date, $book_id)", 
+            {$author: "Wes Llavore", 
+              $summary: "Summary Review for " + book.title, 
+              $review: "Here is my review for " + book.title + " I loved it!!!! I would recommend to anyone!", 
+              $rating: rating, 
+              $date: date, $book_id: index
+            });
     });
   });
 }
 
-const getBooks = () => {
+const getBooksAndProcess = () => {
   https.get('https://raw.githubusercontent.com/moonvd/hw/master/books.txt', (resp) => {
     let data = '';
   
@@ -113,5 +118,5 @@ const getBooks = () => {
 }
 
 module.exports = {
-  getBooks: getBooks
+  getBooksAndProcess: getBooksAndProcess
 };
