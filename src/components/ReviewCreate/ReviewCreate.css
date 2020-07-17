@@ -1,0 +1,10 @@
+.ReviewCreate-fields {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+}
+.ReviewCreate-fields>div {
+    flex: 0 100%;
+    width: 100%;
+    text-align: left;
+  }

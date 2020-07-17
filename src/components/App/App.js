@@ -28,7 +28,9 @@ class App extends React.Component {
       <div className="App">
         <h1>Book Review</h1>
         <BooksList books={this.state.books}/>
+        <div className="overlay"></div>
       </div>
+      
     );
   }
 }
