@@ -40,7 +40,7 @@ class ReviewCreate extends React.Component{
     }
 
     handleReviewSubmit(event){
-        const url = 'http://localhost:4001/api/review?bookId=' + this.props.book.id;
+        const url = window.location.protocol + "//" + window.location.hostname + ':4001/api/review?bookId=' + this.props.book.id;
         fetch(url, {                                        // sends request
             method: 'POST',
             body: JSON.stringify(this.state),

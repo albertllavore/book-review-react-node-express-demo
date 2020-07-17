@@ -6,7 +6,7 @@ class StarRatingSet extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            rating: null || this.props.rating
+            rating: null
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -32,7 +32,7 @@ class StarRatingSet extends React.Component{
                             <FaStar 
                                 className="star" 
                                 color={ratingValue <= this.state.rating ? "#ffc107" : "#e4e5e9"}
-                                size={21}
+                                size={20}
                             />
                         </label>
                     )
@@ -40,6 +40,5 @@ class StarRatingSet extends React.Component{
             </div>
             )
     }
-    
 }
 export default StarRatingSet;

@@ -12,7 +12,7 @@ class ReviewsList extends React.Component{
     render(){    
         return(
             <div className="BookReviews">
-                <h3>Reviews</h3>
+                <h4>Reviews</h4>
                 <div className="ReviewList">
                     {
                         this.props.reviews.map((review, index) => {

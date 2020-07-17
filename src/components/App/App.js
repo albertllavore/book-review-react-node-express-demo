@@ -16,7 +16,7 @@ class App extends React.Component {
   }
 
   getAllBooks() {
-    fetch('http://localhost:4001/api/book')
+    fetch( window.location.protocol + "//" + window.location.hostname + ':4001/api/book')
       .then(response => response.json())
       .then(data => {
         this.setState({ books: data });
