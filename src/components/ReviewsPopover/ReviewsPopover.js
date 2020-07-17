@@ -61,19 +61,9 @@ class ReviewsPopover extends React.Component {
                     </div>
                 </div>
                 <hr></hr>
-                <button id="write-a-review" onClick={this.toggleReviewsHidden}><span>Write a Review</span></button>
-                {!this.state.reviewsHidden && <ReviewCreate book={this.props.book} handleChange={this.handleChange}/>}
-                <hr></hr>
-                <div className="BookReviews">
-                        <h3>Reviews</h3>
-                        <ReviewsList reviews={this.state.reviews}/>
-                        <h3 className="BookReviews-rating"></h3>
-                        <div className="BookReviews-sort-options">
-                            <ul>
-                                            
-                            </ul>
-                        </div>
-                </div>
+                <button id="write-a-review" onClick={this.toggleReviewsHidden}><span>{!this.state.reviewsHidden ? `Close` : `Write a Review`}</span></button>
+                {!this.state.reviewsHidden && <ReviewCreate book={this.props.book} handleChange={this.handleChange} handleClick={this.toggleReviewsHidden}/>}
+                {this.state.reviewsHidden && <ReviewsList reviews={this.state.reviews}/>}
             </div>
         );
     } 

@@ -55,6 +55,7 @@ class ReviewCreate extends React.Component{
         }, networkError => console.log(networkError.message) // handle errors
         ).then(jsonResponse => {                             // handle success
             this.props.handleChange();
+            this.props.handleClick();
         });
         
         event.preventDefault();
