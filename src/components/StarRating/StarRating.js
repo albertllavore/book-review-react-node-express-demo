@@ -12,11 +12,7 @@ class StarRating extends React.Component{
     }
 
     handleClick(event){
-        //this.setState({rating: event.target.value});
-        //this.props.handleRatingChange(event);
-
         // open the popover
-
     }
 
     render(){

@@ -25,7 +25,7 @@ class ReviewsPopover extends React.Component {
         fetch(window.location.protocol + "//" + window.location.hostname + `:4001/api/review?bookId=${this.props.book.id}`)
         .then(response => response.json())
         .then(data => {
-            this.setState({ reviews: data });
+            this.setState({ reviews: data.reverse() });
             this.calculateRating();
         });
     }
