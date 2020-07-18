@@ -6,9 +6,9 @@ class Review extends React.Component{
     render(){
         return(
             <div className="Review">
+                <h5> Reviewed by <span className="author">{this.props.review.author}</span><span className="date"> on {this.props.review.date}</span></h5>
                 <StarRating rating={this.props.review.rating}/>
-                <h6>"{this.props.review.summary}" by <span className="author">{this.props.review.author}</span></h6>
-                <p><span className="date">{this.props.review.date}</span></p>
+                <h5>{this.props.review.summary}</h5>
                 <p><i>"{this.props.review.review}"</i></p>
                 <hr></hr>
             </div>

@@ -25,8 +25,7 @@ class ReviewsPopover extends React.Component {
         fetch(window.location.protocol + "//" + window.location.hostname + `:4001/api/review?bookId=${this.props.book.id}`)
         .then(response => response.json())
         .then(data => {
-            this.setState({ reviews: data.reverse() });
-            this.calculateRating();
+            this.setState({ reviews: data.reverse()}, this.calculateRating);
         });
     }
 
@@ -59,20 +58,22 @@ class ReviewsPopover extends React.Component {
                         size={30}
                         onClick={this.props.handleShowAndHide}
                     />
-                    <div className="image-container">
-                        <img src={this.props.book.img} height="300" alt={imgAlt} />
-                    </div>
                     <div className="Book-information-container">
-                        <div className="Book-title"><h4>{this.props.book.title}</h4></div>
-                        <StarRating rating={this.state.rating}/>
-                        <div className="Book-author">By {this.props.book.author}</div>
-                        <div className="Book-publisher">{this.props.book.publisher}</div>
-                        <div className="Book-summary">{this.props.book.summary}</div>
+                        <div className="image-container">
+                            <img src={this.props.book.img} height="300" alt={imgAlt} />
+                        </div>
+                        <div className="Book-information">
+                            <div className="Book-title"><h4>{this.props.book.title}</h4></div>
+                            <div className="Book-author">By {this.props.book.author}</div>
+                            <div className="Book-publisher">{this.props.book.publisher}</div>
+                            <StarRating rating={this.state.rating}/>
+                            <div className="Book-summary"><i>{this.props.book.summary}</i></div>
+                            <a id="write-a-review" className="write-a-review" onClick={this.toggleReviewsHidden}><span>{!this.state.reviewsHidden ? `Write a Review` : `Write a Review`}</span></a>
+                        </div>
                     </div>
                 </div>
                 <hr></hr>
-                <button id="write-a-review" onClick={this.toggleReviewsHidden}><span>{!this.state.reviewsHidden ? `Close` : `Write a Review`}</span></button>
-                {!this.state.reviewsHidden && <ReviewCreate book={this.props.book} handleChange={this.handleChange} handleClick={this.toggleReviewsHidden}/>}
+                {!this.state.reviewsHidden && <ReviewCreate book={this.props.book} handleClick={this.toggleReviewsHidden} handleChange={this.handleChange} toggleReviewsHidden={this.toggleReviewsHidden}/>}
                 {this.state.reviewsHidden && <ReviewsList reviews={this.state.reviews}/>}
             </div>
         );
