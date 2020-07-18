@@ -13,3 +13,24 @@
     right: 20px;
     top: 2%;
 }
+
+.ReviewsPopover .Book-information-container {
+    padding: 25px;
+    display: flex;
+}
+
+.ReviewsPopover .img {
+    width: 250px;
+    height: auto;
+}
+
+.ReviewsPopover .Book-information {
+    padding: 25px;
+}
+.ReviewsPopover .Book-information>div {
+    padding: 10px 0;
+}
+
+.ReviewsPopover hr {
+    margin: 10px 20px;
+}
