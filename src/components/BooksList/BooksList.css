@@ -1,6 +1,7 @@
 .BooksList {
     display: flex;
-    justify-content: space-around;
+    justify-content: stretch;
     flex-wrap: wrap;
-    margin: 4.4rem 10%;
+    margin: 2rem 2rem;
+    
   }

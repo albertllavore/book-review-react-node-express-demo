@@ -1,0 +1,11 @@
+.BookReviews {
+    margin: 2rem 2rem;
+}
+
+.BookReviews h4 {
+    margin-top: 0;
+}
+
+.show-reviews {
+    float: right;
+}

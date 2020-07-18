@@ -16,7 +16,7 @@ class App extends React.Component {
   }
 
   getAllBooks() {
-    fetch('http://localhost:4001/api/book')
+    fetch( window.location.protocol + "//" + window.location.hostname + ':4001/api/book')
       .then(response => response.json())
       .then(data => {
         this.setState({ books: data });
@@ -26,9 +26,11 @@ class App extends React.Component {
   render(){
     return (
       <div className="App">
-        <h1>Book Review</h1>
+        <h1>Moon Creative Lab Book Review</h1>
         <BooksList books={this.state.books}/>
+        <div className="overlay"></div>
       </div>
+      
     );
   }
 }

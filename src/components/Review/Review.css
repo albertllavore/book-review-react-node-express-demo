@@ -1,0 +1,18 @@
+.write-a-review {
+    width: 150px;
+    height: 30px;
+    background-color: white;
+    text-decoration: underline;
+}
+
+.date {
+    font-size: .8rem;
+}
+
+.author{
+    font-size: 1rem;
+}
+
+.Review hr {
+    margin: 20px 10%;
+}

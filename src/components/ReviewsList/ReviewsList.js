@@ -11,12 +11,15 @@ class ReviewsList extends React.Component{
     }
     render(){    
         return(
-            <div className="ReviewList">
-                {
-                    this.props.reviews.map((review, index) => {
-                        return <Review key={review.id} review={review} />;
-                    })
-                }
+            <div className="BookReviews">
+                <div className="ReviewList">
+                    <h4>Book Reviews</h4>
+                    {   
+                        this.props.reviews.map((review, index) => {
+                            return <Review key={review.id} review={review} />;
+                        })
+                    }
+                </div>
             </div>
         )
     }
