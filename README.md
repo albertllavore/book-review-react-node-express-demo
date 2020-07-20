@@ -4,6 +4,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `node setup.js`
+
+Creates and seeds the database
+
+
 ### `node server.js`
 
 Starts the server. <br />
