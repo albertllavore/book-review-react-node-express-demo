@@ -93,6 +93,30 @@ const seedBookAndReviewDatabases = () => {
               $rating: rating, 
               $date: date, $book_id: index
             });
+
+      rating = Math.floor(Math.random() * 6);
+      let review = "Here is my review for " + book.title + " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam rutrum luctus ante a consequat. Nulla facilisi. Nullam aliquam velit vel ex rhoncus, sed mollis lacus malesuada. Duis nec metus mattis neque dictum venenatis sit amet a neque. Suspendisse ultricies vulputate justo, et porttitor leo lobortis et. Nunc id vestibulum justo, in ornare lectus. Cras consequat, eros sed pharetra gravida, ipsum magna placerat mauris, in sagittis mauris purus sed urna. Proin sed dolor mattis, finibus odio sed, laoreet orci. Nunc nec velit at enim pharetra interdum vitae at est. Duis ac ultrices elit."
+      
+      db.run("INSERT INTO Review (author, summary, review, rating, date, book_id) VALUES " +
+      "($author, $summary, $review, $rating, $date, $book_id)", 
+      {$author: "Warren Llavore", 
+        $summary: "Lorem ipsum " + book.title, 
+        $review: review, 
+        $rating: rating, 
+        $date: date, $book_id: index
+      });
+
+      rating = Math.floor(Math.random() * 6);
+      review = "Here is my review for " + book.title + " Phasellus lobortis fringilla maximus. Integer lacinia eleifend augue, a porttitor arcu. In enim quam, hendrerit a ante sit amet, rutrum bibendum ex. Donec quis fermentum orci. Ut elementum bibendum nisi vel efficitur. Etiam eget urna vitae tellus iaculis hendrerit. Nulla at tincidunt turpis. Donec nibh justo, feugiat nec tincidunt at, laoreet vel tellus. Duis non elit varius, aliquam neque ac, hendrerit leo. Vivamus sed massa molestie tortor eleifend dictum id quis lacus. Vestibulum pellentesque mi eu mauris auctor commodo."
+      
+      db.run("INSERT INTO Review (author, summary, review, rating, date, book_id) VALUES " +
+      "($author, $summary, $review, $rating, $date, $book_id)", 
+      {$author: "Chloe Llavore", 
+        $summary: "Lorem ipsum " + book.title, 
+        $review: review, 
+        $rating: rating, 
+        $date: date, $book_id: index
+      });
     });
   });
 }
