@@ -26,6 +26,7 @@ class ReviewsPopover extends React.Component {
         .then(response => response.json())
         .then(data => {
             this.setState({ reviews: data.reverse()}, this.calculateRating);
+            this.props.handleReviewsChange();
         });
     }
 
@@ -68,7 +69,7 @@ class ReviewsPopover extends React.Component {
                             <div className="Book-publisher">{this.props.book.publisher}</div>
                             <StarRating rating={this.state.rating}/>
                             <div className="Book-summary"><i>{this.props.book.summary}</i></div>
-                            <a id="write-a-review" className="write-a-review" onClick={this.toggleReviewsHidden}><span>{!this.state.reviewsHidden ? `Write a Review` : `Write a Review`}</span></a>
+                            <div id="write-a-review" className="write-a-review" onClick={this.toggleReviewsHidden}>{!this.state.reviewsHidden ? `Write a Review` : `Write a Review`}</div>
                         </div>
                     </div>
                 </div>

@@ -42,7 +42,7 @@ class BooksList extends React.Component{
                         })
                     }
                 </div>
-                {!this.state.isHidden && <ReviewsPopover book={this.state.reviewsPopoverBook} handleShowAndHide={this.handleShowAndHide}/>}
+                {!this.state.isHidden && <ReviewsPopover book={this.state.reviewsPopoverBook} handleShowAndHide={this.handleShowAndHide} handleReviewsChange={this.props.handleReviewsChange}/>}
             </div>
         )
     }

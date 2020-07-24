@@ -1,8 +1,8 @@
 .write-a-review {
-    width: 150px;
     height: 30px;
     background-color: white;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .date {

@@ -25,3 +25,8 @@
     background-color: rgb(150, 146, 146);
     color: white;
 }
+
+.show-reviews {
+    float: right;
+    margin-right: 20px;
+}
