@@ -6,13 +6,15 @@
     margin-top: 0;
 }
 
-.Sort-reviews ul{
+.Sort-reviews ul,
+.Sort-books ul{
     display: inline-flex;
     list-style-type: none;
     align-content: space-around;
 }
 
-.Sort-reviews ul li {
+.Sort-reviews ul li,
+.Sort-books ul li {
     cursor: pointer;
     width: 5rem;
     border-bottom: 1px solid #fff;
@@ -24,14 +26,20 @@
     transition: color .25s;
 }
 
-.Sort-reviews li:hover {
+.Sort-reviews li:hover,
+.Sort-books li:hover {
     color: #d4cfcf;
   }
   
 .Sort-reviews li.active,
-.Sort-reviews li.active:hover {
+.Sort-reviews li.active:hover,
+.Sort-books li.active,
+.Sort-books li.active:hover {
     border-bottom: 1px solid #f0c36c;
     color: #f0c36c;
     font-weight: 500;
-    font-size: .75rem;
+}
+
+.Sort-books label {
+    font-size: .8rem;
 }

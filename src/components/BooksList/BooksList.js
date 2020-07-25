@@ -58,8 +58,8 @@ class BooksList extends React.Component{
     render(){
         return(
             <div>
-                <div className="Sort-reviews">
-                    Sort By:
+                <div className="Sort-books">
+                    <label>Sort By:</label>
                     <ul>
                         {this.renderSortByOptions()}                    
                     </ul>
