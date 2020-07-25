@@ -10,6 +10,7 @@ class App extends React.Component {
     }
     this.getAllBooks = this.getAllBooks.bind(this);
     this.handleReviewsChange = this.handleReviewsChange.bind(this);
+    this.sortBookList = this.sortBookList.bind(this);
   }
 
   componentDidMount() {
@@ -25,6 +26,24 @@ class App extends React.Component {
       });
   }
 
+  sortBookList(sortBy) {
+    if(sortBy === "title") {
+      this.state.books.sort((a, b) => {
+          if(a.title.toLowerCase() < b.title.toLowerCase()) {
+              return -1;
+          }
+          return 0;
+      });
+    } else if(sortBy === "author") {
+        this.state.books.sort((a, b) => {
+            if(a.author.toLowerCase() < b.author.toLowerCase()) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+}
+
   handleReviewsChange() {
     this.getAllBooks();
   }
@@ -33,7 +52,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Moon Creative Lab Book Review</h1>
-        <BooksList books={this.state.books} handleReviewsChange={this.handleReviewsChange}/>
+        <BooksList books={this.state.books} handleReviewsChange={this.handleReviewsChange} sortBookList={this.sortBookList}/>
         <div className="overlay"></div>
       </div>
       

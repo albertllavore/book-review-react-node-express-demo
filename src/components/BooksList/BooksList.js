@@ -8,10 +8,19 @@ class BooksList extends React.Component{
         super(props);
         this.state = {
             reviewsPopoverBook: {},
-            isHidden: true
+            isHidden: true,
+            sortBy: 'title'
         }
+        
+        this.sortByOptions = {
+            //"Highest Rated" : "rating",
+            "Title" : "title",
+            "Author" : "author"
+        };
+
         this.handleClick = this.handleClick.bind(this);
         this.handleShowAndHide = this.handleShowAndHide.bind(this);
+        this.handleSortByChange = this.handleSortByChange.bind(this);
     }
 
     handleClick(event){
@@ -30,9 +39,31 @@ class BooksList extends React.Component{
         document.body.classList.remove("modal-open");
     }
 
+    handleSortByChange(sortByOption){
+        this.setState({sortBy: sortByOption}, this.props.sortBookList(sortByOption));
+    }
+
+    getSortByClass(sortByOption){
+        if(this.state.sortBy === sortByOption) return 'active'
+        return '';
+    }
+
+    renderSortByOptions() {
+        return Object.keys(this.sortByOptions).map(sortByOption => {
+            let sortByOptionValue = this.sortByOptions[sortByOption];
+            return <li key={sortByOptionValue} className={this.getSortByClass(sortByOptionValue)} onClick={this.handleSortByChange.bind(this, sortByOptionValue)}>{sortByOption}</li>
+        });
+    }
+
     render(){
         return(
             <div>
+                <div className="Sort-reviews">
+                    Sort By:
+                    <ul>
+                        {this.renderSortByOptions()}                    
+                    </ul>
+                </div>
                 <div className="BooksList">
                     {
                         this.props.books.map((book, index) => {
