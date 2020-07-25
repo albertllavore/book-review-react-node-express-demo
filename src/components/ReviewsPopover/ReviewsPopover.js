@@ -15,6 +15,7 @@ class ReviewsPopover extends React.Component {
         };
         this.getAllReviews = this.getAllReviews.bind(this);
         this.toggleReviewsHidden = this.toggleReviewsHidden.bind(this);
+        this.sortReviews = this.sortReviews.bind(this);
     }
 
     componentDidMount() {
@@ -26,6 +27,7 @@ class ReviewsPopover extends React.Component {
         .then(response => response.json())
         .then(data => {
             this.setState({ reviews: data.reverse()}, this.calculateRating);
+            this.sortReviews("newest");
             this.props.handleReviewsChange();
         });
     }
@@ -42,10 +44,30 @@ class ReviewsPopover extends React.Component {
         })
     }
 
+    sortReviews(sortBy) {
+        if(sortBy === "rating") {
+            this.state.reviews.sort((a, b) => b.rating - a.rating);
+        }else if(sortBy === "rating_low") {
+            this.state.reviews.sort((a, b) => a.rating - b.rating);
+        }else if(sortBy === "author") {
+            this.state.reviews.sort((a, b) => {
+                if(a.author.toLowerCase() < b.author.toLowerCase()) {
+                    return -1;
+                }
+                return 0;
+            });
+        }else if(sortBy === "newest") {
+            this.state.reviews.sort((a, b) => {
+                a = new Date(a.date);
+                b = new Date(b.date);
+                return b - a;
+            });
+        }
+    }
+
     handleChange = (inputFromChild) => {
         this.getAllReviews();
     }
-
 
     render(){
         let imgAlt = `${this.props.book.title} cover image`;
@@ -75,7 +97,7 @@ class ReviewsPopover extends React.Component {
                 </div>
                 <hr></hr>
                 {!this.state.reviewsHidden && <ReviewCreate book={this.props.book} handleClick={this.toggleReviewsHidden} handleChange={this.handleChange} toggleReviewsHidden={this.toggleReviewsHidden}/>}
-                {this.state.reviewsHidden && <ReviewsList reviews={this.state.reviews}/>}
+                {this.state.reviewsHidden && <ReviewsList reviews={this.state.reviews} sortReviews={this.sortReviews}/>}
             </div>
         );
     } 
