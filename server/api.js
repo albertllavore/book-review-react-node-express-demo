@@ -9,4 +9,8 @@ apiRouter.use('/book', booksRouter);
 const reviewsRouter = require('./reviews.js');
 apiRouter.use('/review', reviewsRouter);
 
+// Import and mount the ratingsRouter
+const ratingsRouter = require('./ratings.js');
+apiRouter.use('/rating', ratingsRouter);
+
 module.exports = apiRouter;
