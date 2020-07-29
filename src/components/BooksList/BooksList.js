@@ -7,6 +7,7 @@ class BooksList extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            books: [],
             reviewsPopoverBook: {},
             isHidden: true,
             sortBy: 'title'
@@ -18,14 +19,49 @@ class BooksList extends React.Component{
             "Author" : "author"
         };
 
+        this.getAllBooks = this.getAllBooks.bind(this);
+        this.handleReviewsChange = this.handleReviewsChange.bind(this);
+        this.sortBookList = this.sortBookList.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleShowAndHide = this.handleShowAndHide.bind(this);
         this.handleSortByChange = this.handleSortByChange.bind(this);
     }
 
+    componentDidMount() {
+        this.getAllBooks();
+    }
+
+    getAllBooks() {
+        fetch( window.location.protocol + "//" + window.location.hostname + ':4001/api/book')
+          .then(response => response.json())
+          .then(data => {
+            this.setState({ books: [] }); // insures we reset state and re-render every time getAllBooks is called
+            this.setState({ books: data });
+            this.sortBookList(this.state.sortBy);
+          });
+    }
+
+    sortBookList(sortBy) {
+        if(sortBy === "title") {
+          this.state.books.sort((a, b) => {
+              if(a.title.toLowerCase() < b.title.toLowerCase()) {
+                  return -1;
+              }
+              return 0;
+          });
+        } else if(sortBy === "author") {
+            this.state.books.sort((a, b) => {
+                if(a.author.toLowerCase() < b.author.toLowerCase()) {
+                    return -1;
+                }
+                return 0;
+            });
+        }
+    }
+
     handleClick(event){
         let bookid = Number(event.currentTarget.getAttribute('data-bookid'));
-        let book = this.props.books.find(book => {
+        let book = this.state.books.find(book => {
             return book.id === bookid;
         });
 
@@ -40,7 +76,11 @@ class BooksList extends React.Component{
     }
 
     handleSortByChange(sortByOption){
-        this.setState({sortBy: sortByOption}, this.props.sortBookList(sortByOption));
+        this.setState({sortBy: sortByOption}, this.sortBookList(sortByOption));
+    }
+
+    handleReviewsChange() {
+        this.getAllBooks();
     }
 
     getSortByClass(sortByOption){
@@ -66,14 +106,14 @@ class BooksList extends React.Component{
                 </div>
                 <div className="BooksList">
                     {
-                        this.props.books.map((book, index) => {
+                        this.state.books.map((book, index) => {
                             return (
                                 <Book key={book.id} book={book} handleClick={this.handleClick}/>
                             )
                         })
                     }
                 </div>
-                {!this.state.isHidden && <ReviewsPopover book={this.state.reviewsPopoverBook} handleShowAndHide={this.handleShowAndHide} handleReviewsChange={this.props.handleReviewsChange}/>}
+                {!this.state.isHidden && <ReviewsPopover book={this.state.reviewsPopoverBook} handleShowAndHide={this.handleShowAndHide} handleReviewsChange={this.handleReviewsChange}/>}
             </div>
         )
     }
