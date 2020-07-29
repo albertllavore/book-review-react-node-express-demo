@@ -74,7 +74,7 @@ class ReviewCreate extends React.Component{
     render(){
         return(
             <div className="ReviewCreate">
-                <a id="show-reviews" className="write-a-review show-reviews" onClick={this.props.toggleReviewsHidden}><span>Show Reviews</span></a>
+                <div id="show-reviews" className="write-a-review show-reviews" onClick={this.props.toggleReviewsHidden}>Show Reviews</div>
                 <div className="ReviewCreate-fields">
                     <div>
                         <label>
@@ -91,7 +91,7 @@ class ReviewCreate extends React.Component{
                     <div>
                         <label>
                             Summary:  
-                            <input type="textarea" class="summary" placeholder="A few words to summarize..." onChange={this.handleSummaryChange}/>
+                            <input type="textarea" className="summary" placeholder="A few words to summarize..." onChange={this.handleSummaryChange}/>
                         </label>
                     </div>
                     <div>

@@ -6,32 +6,7 @@ class Book extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            reviews: [],
-            rating: 0
         };
-        this.getAllReviews = this.getAllReviews.bind(this);
-    }
-
-    componentDidMount() {
-        this.getAllReviews();
-    }
-
-    calculateRating(){
-        const reducer = (accumulator, item) => accumulator + item.rating;
-        let rating = Math.floor(this.state.reviews.reduce(reducer, 0)/this.state.reviews.length);
-        this.setState({rating: rating});
-    }
-    
-    getAllReviews() {
-        fetch(window.location.protocol + "//" + window.location.hostname + `:4001/api/review?bookId=${this.props.book.id}`)
-        .then(response => response.json())
-        .then(data => {
-            this.setState({ reviews: data }, this.calculateRating);
-        });
-    }
-
-    handleChange = (inputFromChild) => {
-        this.getAllReviews();
     }
 
     render(){
@@ -45,7 +20,7 @@ class Book extends React.Component {
                     </div>
                     <div className="Book-information-container">
                         <div className="Book-title"><h4>{this.props.book.title}</h4></div>
-                        <StarRating rating={this.state.rating}/>
+                        <StarRating rating={this.props.book.rating}/>
                         <div className="Book-author">By {this.props.book.author}</div>
                     </div>
                 </div>

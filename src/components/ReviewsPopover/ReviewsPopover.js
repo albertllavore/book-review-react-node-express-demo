@@ -14,25 +14,32 @@ class ReviewsPopover extends React.Component {
             rating: 0
         };
         this.getAllReviews = this.getAllReviews.bind(this);
+        this.getRating = this.getRating.bind(this);
         this.toggleReviewsHidden = this.toggleReviewsHidden.bind(this);
+        this.sortReviews = this.sortReviews.bind(this);
     }
 
     componentDidMount() {
         this.getAllReviews();
+        this.getRating();
     }
     
     getAllReviews() {
         fetch(window.location.protocol + "//" + window.location.hostname + `:4001/api/review?bookId=${this.props.book.id}`)
         .then(response => response.json())
         .then(data => {
-            this.setState({ reviews: data.reverse()}, this.calculateRating);
+            this.setState({reviews: data});
+            this.sortReviews("newest");
+            this.props.handleReviewsChange();
         });
     }
 
-    calculateRating(){
-        const reducer = (accumulator, item) => accumulator + item.rating;
-        let rating = Math.floor(this.state.reviews.reduce(reducer, 0)/this.state.reviews.length);
-        this.setState({rating: rating});
+    getRating() {
+        fetch(window.location.protocol + "//" + window.location.hostname + `:4001/api/book/${this.props.book.id}`)
+        .then(response => response.json())
+        .then(data => {
+            this.setState({rating: data.rating});
+        });
     }
 
     toggleReviewsHidden () {
@@ -41,10 +48,31 @@ class ReviewsPopover extends React.Component {
         })
     }
 
-    handleChange = (inputFromChild) => {
-        this.getAllReviews();
+    sortReviews(sortBy) {
+        if(sortBy === "rating") {
+            this.state.reviews.sort((a, b) => b.rating - a.rating);
+        }else if(sortBy === "rating_low") {
+            this.state.reviews.sort((a, b) => a.rating - b.rating);
+        }else if(sortBy === "author") {
+            this.state.reviews.sort((a, b) => {
+                if(a.author.toLowerCase() < b.author.toLowerCase()) {
+                    return -1;
+                }
+                return 0;
+            });
+        }else if(sortBy === "newest") {
+            this.state.reviews.sort((a, b) => {
+                a = new Date(a.date);
+                b = new Date(b.date);
+                return b - a;
+            });
+        }
     }
 
+    handleChange = (inputFromChild) => {
+        this.getAllReviews();
+        this.getRating();
+    }
 
     render(){
         let imgAlt = `${this.props.book.title} cover image`;
@@ -68,13 +96,13 @@ class ReviewsPopover extends React.Component {
                             <div className="Book-publisher">{this.props.book.publisher}</div>
                             <StarRating rating={this.state.rating}/>
                             <div className="Book-summary"><i>{this.props.book.summary}</i></div>
-                            <a id="write-a-review" className="write-a-review" onClick={this.toggleReviewsHidden}><span>{!this.state.reviewsHidden ? `Write a Review` : `Write a Review`}</span></a>
+                            <div id="write-a-review" className="write-a-review" onClick={this.toggleReviewsHidden}>{!this.state.reviewsHidden ? `Write a Review` : `Write a Review`}</div>
                         </div>
                     </div>
                 </div>
                 <hr></hr>
                 {!this.state.reviewsHidden && <ReviewCreate book={this.props.book} handleClick={this.toggleReviewsHidden} handleChange={this.handleChange} toggleReviewsHidden={this.toggleReviewsHidden}/>}
-                {this.state.reviewsHidden && <ReviewsList reviews={this.state.reviews}/>}
+                {this.state.reviewsHidden && <ReviewsList reviews={this.state.reviews} sortReviews={this.sortReviews}/>}
             </div>
         );
     } 
