@@ -38,6 +38,8 @@ You will also see any lint errors in the console.
 [http://localhost:4001/api/review?bookId=1] to get reviews for book with bookId = 1
 
 ### Ratings
-[http://localhost:4001/api/rating] to get list of all books
+[http://localhost:4001/api/rating] to get ratings for all books
 
-[http://localhost:4001/api/rating/1] to get book with bookId = 1
+[http://localhost:4001/api/rating/1] to get a rating with ratingId = 1
+
+[http://localhost:4001/api/rating&bookId=1] to get ratings for book with bookId = 1
