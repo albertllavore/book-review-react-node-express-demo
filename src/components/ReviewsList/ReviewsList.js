@@ -41,6 +41,7 @@ class ReviewsList extends React.Component{
                 <div className="ReviewList">
                     <h4>Book Reviews</h4>
                     <div className="Sort-reviews">
+                        <label>Sort By:</label>
                         <ul>
                             {this.renderSortByOptions()}                    
                         </ul>

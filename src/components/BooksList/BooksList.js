@@ -14,7 +14,7 @@ class BooksList extends React.Component{
         }
         
         this.sortByOptions = {
-            //"Highest Rated" : "rating",
+            "Highest Rated" : "rating",
             "Title" : "title",
             "Author" : "author"
         };
@@ -49,13 +49,15 @@ class BooksList extends React.Component{
               }
               return 0;
           });
-        } else if(sortBy === "author") {
+        }else if(sortBy === "author") {
             this.state.books.sort((a, b) => {
                 if(a.author.toLowerCase() < b.author.toLowerCase()) {
                     return -1;
                 }
                 return 0;
             });
+        }else if(sortBy === "rating") {
+            this.state.books.sort((a, b) => b.rating - a.rating );
         }
     }
 
