@@ -3,7 +3,7 @@
 ## Technologies used
 ### Backend
 * Node
-  * Frameworks
+ * Including Frameworks:
   * Express
   * Morgan
   * Body-Parser
