@@ -3,13 +3,13 @@
 ## Technologies used
 ### Backend
 * Node
-** Frameworks
-*** Express
-*** Morgan
-*** Body-Parser
-*** Cors
-*** Error-handler
-*** HTTPS
+  * Frameworks
+  * Express
+  * Morgan
+  * Body-Parser
+  * Cors
+  * Error-handler
+  * HTTPS
 
 ### Frontend
 * Javascript/ES6/JSX
