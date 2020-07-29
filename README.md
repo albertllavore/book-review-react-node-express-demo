@@ -1,7 +1,7 @@
 # Full stack demo web app project
 
 ## Technologies used
-### Backend
+### Backend/API
 * Node
   * Including Frameworks:
     * Express
