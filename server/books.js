@@ -21,7 +21,13 @@ booksRouter.get('/:id', (req, res, next) => {
         if (error) {
             throw error;
         }
-        res.status(200).send(row);
+
+        if(row === undefined)
+            res.status(404).send('non-numeric bookId');
+        else if(!isNaN(req.params.id))
+            res.status(200).send(row);
+        else 
+            res.status(404).send('No such bookId');
     })  
 });
 

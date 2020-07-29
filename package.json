@@ -12,18 +12,19 @@
     "errorhandler": "^1.5.1",
     "express": "^4.17.1",
     "https": "^1.0.0",
-    "mocha": "^8.0.1",
     "morgan": "^1.10.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-icons": "^3.10.0",
     "react-scripts": "3.4.1",
-    "sqlite3": "^5.0.0"
+    "request": "^2.88.2",
+    "sqlite3": "^5.0.0",
+    "supertest": "^4.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "mocha --reporter spec",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -40,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "mocha": "^8.0.1"
   }
 }
