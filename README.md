@@ -25,12 +25,19 @@ You will also see any lint errors in the console.
 
 ## APIs
 
+### Books
 [http://localhost:4001/api/book] to get list of all books
 
 [http://localhost:4001/api/book/1] to get book with bookId = 1
 
+### Reviews
 [http://localhost:4001/api/review] to get all reviews
 
 [http://localhost:4001/api/review/1] to get review with reviewId = 1
 
 [http://localhost:4001/api/review?bookId=1] to get reviews for book with bookId = 1
+
+### Ratings
+[http://localhost:4001/api/rating] to get list of all books
+
+[http://localhost:4001/api/rating/1] to get book with bookId = 1
