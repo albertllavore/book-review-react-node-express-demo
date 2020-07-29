@@ -1,4 +1,27 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Full stack demo web app project
+
+## Technologies used
+### Backend
+* Node
+** Frameworks
+*** Express
+*** Morgan
+*** Body-Parser
+*** Cors
+*** Error-handler
+*** HTTPS
+
+### Frontend
+* Javascript/ES6/JSX
+* React
+* HTML
+* CSS
+
+### Database
+* SQLLite
+
+### Tests
+* Mocha/Chai
 
 ## Available Scripts
 
