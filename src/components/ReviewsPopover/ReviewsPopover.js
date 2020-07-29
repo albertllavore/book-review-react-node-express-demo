@@ -14,28 +14,32 @@ class ReviewsPopover extends React.Component {
             rating: 0
         };
         this.getAllReviews = this.getAllReviews.bind(this);
+        this.getRating = this.getRating.bind(this);
         this.toggleReviewsHidden = this.toggleReviewsHidden.bind(this);
         this.sortReviews = this.sortReviews.bind(this);
     }
 
     componentDidMount() {
         this.getAllReviews();
+        this.getRating();
     }
     
     getAllReviews() {
         fetch(window.location.protocol + "//" + window.location.hostname + `:4001/api/review?bookId=${this.props.book.id}`)
         .then(response => response.json())
         .then(data => {
-            this.setState({ reviews: data.reverse()}, this.calculateRating);
+            this.setState({reviews: data});
             this.sortReviews("newest");
             this.props.handleReviewsChange();
         });
     }
 
-    calculateRating(){
-        const reducer = (accumulator, item) => accumulator + item.rating;
-        let rating = Math.floor(this.state.reviews.reduce(reducer, 0)/this.state.reviews.length);
-        this.setState({rating: rating});
+    getRating() {
+        fetch(window.location.protocol + "//" + window.location.hostname + `:4001/api/book/${this.props.book.id}`)
+        .then(response => response.json())
+        .then(data => {
+            this.setState({rating: data.rating});
+        });
     }
 
     toggleReviewsHidden () {
@@ -67,6 +71,7 @@ class ReviewsPopover extends React.Component {
 
     handleChange = (inputFromChild) => {
         this.getAllReviews();
+        this.getRating();
     }
 
     render(){
