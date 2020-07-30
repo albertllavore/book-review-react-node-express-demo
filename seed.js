@@ -93,7 +93,7 @@ const seedBookAndReviewDatabases = () => {
     ')');
 
     db.run(
-      'CREATE TRIGGER aft_review_insert ' +
+      'CREATE TRIGGER after_review_insert ' +
         'AFTER INSERT ON Review ' +
       'BEGIN ' +
         'UPDATE Rating ' +
@@ -104,7 +104,7 @@ const seedBookAndReviewDatabases = () => {
     );
 
     db.run(
-      'CREATE TRIGGER aft_rating_insert ' +
+      'CREATE TRIGGER after_rating_insert ' +
         'AFTER UPDATE ON Rating ' +
       'BEGIN ' +
         'UPDATE Rating ' +
@@ -114,7 +114,7 @@ const seedBookAndReviewDatabases = () => {
     );
 
     db.run(
-      'CREATE TRIGGER aft_rating_update ' +
+      'CREATE TRIGGER after_rating_update ' +
         'AFTER UPDATE OF average_rating ON Rating ' +
       'BEGIN ' +
         'UPDATE Book ' +
@@ -123,6 +123,18 @@ const seedBookAndReviewDatabases = () => {
       'END;'
     );
 
+    db.run(
+      'CREATE TRIGGER after_review_delete ' +
+        'AFTER DELETE ON Review ' +
+        'FOR EACH ROW ' +
+      'BEGIN ' +
+        'UPDATE Rating ' +
+        'SET number_of_reviews = number_of_reviews - 1, ' +
+        'total_rating = total_rating - old.rating ' +
+        'WHERE book_id = old.book_id; ' + 
+      'END;'
+    );
+    
     let sql = `SELECT * FROM Book`;
     db.all(sql, [], (err, rows) => {
       if (err) {
