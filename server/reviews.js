@@ -19,7 +19,18 @@ reviewsRouter.get('/', (req, res, next) => {
         if (error) {
             res.sendStatus(400);
         }
-        res.status(200).send(rows);
+
+        if(query.bookId){ 
+            if(rows.length === 0){
+                if(isNaN(query.bookId)) 
+                    res.status(404).send('non-numeric id');
+                else 
+                    res.status(404).send('Not Found');
+            }else 
+                res.status(200).send(rows);
+        }else{
+            res.status(200).send(rows);
+        }
     })  
 });
 
@@ -51,7 +62,7 @@ reviewsRouter.post('/', (req, res, next) => {
         review: rev.review,
         rating: Number(rev.rating),
         date: date,
-        bookId: Number(req.query.bookId)
+        bookId: Number(req.query.bookId) || rev.bookId
     }
 
     db.run("INSERT INTO Review (author, summary, review, rating, date, book_id) VALUES " +
@@ -60,12 +71,31 @@ reviewsRouter.post('/', (req, res, next) => {
         function(err){
             if (err) {
                 res.status(400).send();
+                return;
             }
             console.log(`A row has been inserted with rowid ${this.lastID}`);
+            review.id = this.lastID;
             res.status(201).send(review);
         }
     );
-    
 });
+
+// Delete a review
+reviewsRouter.delete('/:reviewId', (req, res, next) => {
+    let query = req.query;
+    let filter = "";
+    if(query.bookId){
+        filter = `WHERE book_id = '${query.bookId}'`;
+    }
+
+    db.run(`DELETE FROM Review WHERE id = ${req.params.reviewId}`, function(err) {
+        if (err) {
+            res.status(400).send();
+            return;
+        }
+        console.log(`A row has been deleted with rowid ${this.lastID}`);
+        res.status(200).send();
+    })
+})
 
 module.exports = reviewsRouter;
