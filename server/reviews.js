@@ -73,7 +73,6 @@ reviewsRouter.post('/', (req, res, next) => {
                 res.status(400).send();
                 return;
             }
-            console.log(`A row has been inserted with rowid ${this.lastID}`);
             review.id = this.lastID;
             res.status(201).send(review);
         }
@@ -93,8 +92,7 @@ reviewsRouter.delete('/:reviewId', (req, res, next) => {
             res.status(400).send();
             return;
         }
-        console.log(`A row has been deleted with rowid ${this.lastID}`);
-        res.status(200).send();
+        res.status(200).send(`A row has been deleted with rowid ${this.lastID}`);
     })
 })
 

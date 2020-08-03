@@ -205,67 +205,62 @@ describe('/api/review routes', function() {
     });
 
   });
-});
 
+  describe('POST /api/review/:reviewId and DELETE /api/review/:reviewId', function() {
 
-describe('POST /api/review', function() {
-
-  it('should add a new review if all supplied information is correct', function() {
-    before(() => { console.log("before") });
-    let initialReviewsArray;
-    let postReviewsArray;
-
-    let newReviewObject = {
-      author: 'Wes Llavore',
-      summary: 'My Summary for the book',
-      review: 'My Review for the book!!!!!',
-      rating: 1,
-      bookId: 1
-    }
-
-    after('delete create review', () => { 
-      // delete the created review
+    it('should add a new review if all supplied information is correct', function() {
+      before(() => { console.log("before") });
+      let initialReviewsArray;
+      let postReviewsArray;
+  
+      let newReviewObject = {
+        author: 'Wes Llavore',
+        summary: 'My Summary for the book',
+        review: 'My Review for the book!!!!!',
+        rating: 1,
+        bookId: 1
+      }
+  
+      after('delete create review', () => { 
+        // delete the created review
+        return request(app)
+          .delete('/api/review/' + newReviewObject.id)
+          .send()
+          .expect(200)
+          .then(() =>{
+            return request(app)
+              .get('/api/review')
+              .then((response) => {
+                postReviewsArray = response.body;
+              })
+              .then(()=>{
+                // verify we are back to the initial array
+                expect(initialReviewsArray).to.be.deep.equal(postReviewsArray);
+              })
+          });
+      });
+      
       return request(app)
-        .delete('/api/review/' + newReviewObject.id)
-        .send()
-        .expect(200)
-        .then(() =>{
+        .get('/api/review')
+        .then((response) => {
+          initialReviewsArray = response.body;
+        })
+        .then(() => {
           return request(app)
-            .get('/api/review')
-            .then((response) => {
-              postReviewsArray = response.body;
-            })
-            .then(()=>{
-              // verify we are back to the initial array
-              expect(initialReviewsArray).to.be.deep.equal(postReviewsArray);
-            })
+            .post('/api/review')
+            .send(newReviewObject)
+            .expect(201);
+        })
+        .then((response) => response.body)
+        .then((createdReview) => {
+          newReviewObject.id = createdReview.id;
+          newReviewObject.date = createdReview.date;
+          expect(newReviewObject).to.be.deep.equal(createdReview);
         });
     });
-    
-    return request(app)
-      .get('/api/review')
-      .then((response) => {
-        initialReviewsArray = response.body;
-      })
-      .then(() => {
-        return request(app)
-          .post('/api/review')
-          .send(newReviewObject)
-          .expect(201);
-      })
-      .then((response) => response.body)
-      .then((createdReview) => {
-        newReviewObject.id = createdReview.id;
-        newReviewObject.date = createdReview.date;
-        expect(newReviewObject).to.be.deep.equal(createdReview);
-      });
+  
   });
-
 });
-
-/*
-  todo: Add tests to check rating table being updated on review creation and deletion
-*/
 
 describe('/api/rating routes', function() {
   describe('GET /api/rating', function() {
@@ -346,4 +341,9 @@ describe('/api/rating routes', function() {
     });
 
   });
+
+  /*
+    todo: Add tests to check rating table being updated on review creation and deletion
+  */
+
 });
