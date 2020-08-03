@@ -32,7 +32,7 @@ class BooksList extends React.Component{
     }
 
     getAllBooks() {
-        fetch( window.location.protocol + "//" + window.location.hostname + ':4001/api/book')
+        fetch('/api/book')
           .then(response => response.json())
           .then(data => {
             this.setState({ books: [] }); // insures we reset state and re-render every time getAllBooks is called
