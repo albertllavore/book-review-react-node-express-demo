@@ -32,14 +32,9 @@ In the project directory, you can run:
 Creates and seeds the database
 
 
-### `node server.js`
+### `npm run start`
 
-Starts the server. <br />
-
-
-### `npm start`
-
-Runs the app in the development mode.<br />
+Starts the server and runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
