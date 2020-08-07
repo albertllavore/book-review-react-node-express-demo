@@ -25,7 +25,7 @@ class ReviewsPopover extends React.Component {
     }
     
     getAllReviews() {
-        fetch(window.location.protocol + "//" + window.location.hostname + `:4001/api/review?bookId=${this.props.book.id}`)
+        fetch(`/api/review?bookId=${this.props.book.id}`)
         .then(response => response.json())
         .then(data => {
             this.setState({reviews: data});
@@ -35,7 +35,7 @@ class ReviewsPopover extends React.Component {
     }
 
     getRating() {
-        fetch(window.location.protocol + "//" + window.location.hostname + `:4001/api/book/${this.props.book.id}`)
+        fetch(`/api/book/${this.props.book.id}`)
         .then(response => response.json())
         .then(data => {
             this.setState({rating: data.rating});

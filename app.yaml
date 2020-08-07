@@ -26,7 +26,4 @@ resources:
   memory_gb: 4.0
   disk_size_gb: 20
 
-health_check:
-      enable_health_check: False
-
 # [END gae_flex_quickstart_yaml]
