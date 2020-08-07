@@ -1,0 +1,32 @@
+.ReviewCreate-fields {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 30px 25% 10px; 
+}
+
+.ReviewCreate-fields>div {
+    text-align: left;
+    flex-basis: 60%;
+    padding: 10px;
+}
+
+.ReviewCreate-fields input{
+    width: 100%;
+}
+
+.ReviewCreate-submit>button {
+    width: 25%;
+    height: 35px;
+    border: 1px grey solid;
+    background-color: white;
+}
+
+.ReviewCreate-submit>button:hover {
+    background-color: rgb(150, 146, 146);
+    color: white;
+}
+
+.show-reviews {
+    float: right;
+    margin-right: 20px;
+}
