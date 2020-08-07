@@ -1,4 +1,5 @@
 # Full stack demo web app project
+[demo](https://react-node-demo-285306.wn.r.appspot.com/)
 
 ## Technologies used
 ### Backend/API
@@ -23,14 +24,17 @@
 ### Tests
 * Mocha/Chai
 
-## Available Scripts
+## Available Scripts to run locally
 
 In the project directory, you can run:
 
-### `node setup.js`
+### `npm run setup`
 
 Creates and seeds the database
 
+### `npm run build`
+
+Creates and seeds the database
 
 ### `npm run start`
 
